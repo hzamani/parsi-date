@@ -16,7 +16,7 @@ module Parsi
 
     DAYS_TO_FIRST_OF_MONTH = [nil, 0, 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336]
     DAYS_IN_MONTH = [nil, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29]
-    PERSIAN_EPOCH = 1948320.5
+    JALALI_EPOCH = 1948320.5
 
     class << self
 
@@ -62,7 +62,6 @@ module Parsi
         Date.jd jd
       end
 
-
       def parse string, comp=true
         # TODO: Add more parse options, for example parse '۴ام فروردین ۱۳۹۱'
         m   = string.match /(?<year>\d+)(\/|-| )(?<month>\d+)(\/|-| )(?<day>\d+)/
@@ -92,9 +91,7 @@ module Parsi
     end
 
     def initialize year=0, month=1, day=1
-      raise ArgumentError.new 'invalid date' unless
-        Date.valid? year, month, day
-
+      raise ArgumentError.new 'invalid date' unless Date.valid? year, month, day
       @year, @month, @day = year, month, day
     end
 
@@ -106,7 +103,7 @@ module Parsi
     end
 
     def inspect
-      "#<Parsi::Date: #{to_s}>"
+      "#<#{self.class}: #{to_s('-')}>"
     end
 
     def jd
@@ -118,7 +115,7 @@ module Parsi
           (epyear * 682 - 110) / 2816 +
           (epyear - 1) * 365 +
           (epbase / 2820 * 1029983) +
-          (PERSIAN_EPOCH - 1) + 0.5
+          (JALALI_EPOCH - 1) + 0.5
       end
     end
 
@@ -144,12 +141,13 @@ module Parsi
     end
 
     def to_gregorian
-      @greqorian ||= ::Date.jd jd
+      ::Date.jd jd
     end
     alias :gregorian :to_gregorian
 
     def strftime format='%Y/%m/%d'
       format.
+        gsub('%%', 'PERCENT_SUBSTITUTION_MARKER').
         gsub('%+', '%a %b %e %H:%M:%S %Z %Y').
         gsub('%c', '%a %-d %B %Y').
         gsub('%x', '%D').
@@ -177,18 +175,20 @@ module Parsi
         gsub('%w', wday.to_s).
         gsub('%n', "\n").
         gsub('%t', "\t").
-        gsub('%%', '%')
+        gsub('PERCENT_SUBSTITUTION_MARKER', '%')
     end
 
     def + days
+      raise TypeError.new 'expected numeric' unless days.is_a? Numeric
       Date.jd jd + days
     end
 
     def - days
-      Date.jd jd - days
+      self + -days
     end
 
     def >> monthes
+      raise TypeError.new 'expected numeric' unless monthes.is_a? Numeric
       monthes = year * 12 + month + monthes
       y = monthes / 12
       m = monthes % 12
@@ -269,7 +269,7 @@ module Parsi
 
   private
     def first_of_year
-      @first_of_year ||= Date.new year, 1, 1
+      @first_of_year ||= Date.ordinal year
     end
   end
 end
@@ -278,8 +278,8 @@ class Date
   def to_parsi
     Parsi::Date.jd jd
   end
-  alias :parsi      :to_parsi
   alias :to_persian :to_parsi
   alias :to_jalali  :to_parsi
+  alias :parsi      :to_parsi
   alias :jalali     :to_parsi
 end

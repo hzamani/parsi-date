@@ -1,8 +1,8 @@
 module Parsi
-  class DateTime
+  class DateTime < Date
     include Comparable
 
-    attr_reader :date, :hour, :minute, :second, :offset
+    attr_reader :hour, :minute, :second, :offset
 
     class << self
       def valid_time? hour=0, minute=0, second=0, offset=0
@@ -16,7 +16,7 @@ module Parsi
         end
       end
 
-      def jd jd
+      def jd jd=0
         date = Date.jd jd.to_i
         h = (jd - jd.to_i) * 24
         m = (h  -  h.to_i) * 60
@@ -35,16 +35,9 @@ module Parsi
       raise ArgumentError.new 'invalid time' unless
         DateTime.valid_time? hour, minute, second
 
-      @date = Parsi::Date.new year, month, day
+      super year, month, day
       @hour, @minute, @second, @offset = hour, minute, second, offset
     end
-
-    def year;  date.year  end
-    def month; date.month end
-    def day;   date.day   end
-    def yday;  date.yday  end
-    def wday;  date.wday  end
-    def gwday; date.gwday end
 
     def zone sep=':'
       f = offset * 24.0
@@ -52,35 +45,57 @@ module Parsi
     end
 
     def to_s sep='/'
-      "%sT%02d:%02d:%02d%s" % [date.to_s(sep), hour, minute, second, zone]
+      "%sT%02d:%02d:%02d%s" % [super(sep), hour, minute, second, zone]
     end
 
     def inspect
-      "#<Parsi::Date #{to_s('-')}>"
+      "#<#{self.class}: #{to_s('-')}>"
     end
 
     def strftime format='%Y/%m/%d %H:%M:%S'
-      gregorian.strftime date.strftime format
+      gregorian.strftime super format
     end
 
     def to_date
-      date
+      Date.new year, month, day
     end
 
     def to_gregorian
-      @greqorian ||= begin
-        g = date.to_gregorian
-        ::DateTime.new g.year, g.month, g.day, hour, minute, second, zone
-      end
+     @gregorian ||= begin
+       ::DateTime.new super.year, super.month, super.day, hour, minute, second, zone
+     end
     end
     alias :gregorian :to_gregorian
 
-    def jd
-      to_gregorian.jd
+    def + days
+      date = super
+      DateTime.new date.year, date.month, date.day, hour, minute, second, offset
+    end
+
+    def >> monthes
+      date = super
+      DateTime.new date.year, date.month, date.day, hour, minute, second, offset
     end
 
     def <=> other
-      to_gregorian <=> other.to_gregorian
+      if other.is_a? Date
+        to_gregorian <=> other.to_gregorian
+      elsif other.is_a? ::Date
+        to_gregorian <=> other
+      else
+        raise ArgumentError.new "comparison of #{self.class} with #{other.class} failed"
+      end
     end
   end
+end
+
+class DateTime
+  def to_parsi
+    date = super
+    Parsi::DateTime.new date.year, date.month, date.day, hour, minute, second, offset
+  end
+  alias :to_persian :to_parsi
+  alias :to_jalali  :to_parsi
+  alias :parsi      :to_parsi
+  alias :jalali     :to_parsi
 end
