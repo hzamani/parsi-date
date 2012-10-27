@@ -1,0 +1,6 @@
+= Parsi Date
+
+This is an implementation of {Solar Hijri Calendar}[http://en.wikipedia.org/wiki/Solar_Hijri_calendar]
+(some times referred to as Jalali or Persian Calendar) which is Iran's official calendar.
+Main aim of this gem is to create a Solar Hijri date library as close as possible to built-in date library.
+Conversion algorithm originally adopted from {here}[http://www.fourmilab.ch/documents/calendar/].

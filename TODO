@@ -1,0 +1,13 @@
+(A) Write rdocs
+(A) Fulfill specs
+
+Add change log
+
+Add activerecord helper: (maybe it's better to add somewhere else parsi-localize for example)
+
+class Product < ActiveRecord::Base
+  # this must add :parsi_released_at accessors and sync with original attribute
+  has_parsi_date_for :released_at
+
+  # can have an optional name
+  has_parsi_date_for :lifecycel_ended_at, as: 'end_of_life'

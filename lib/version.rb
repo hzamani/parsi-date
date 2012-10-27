@@ -1,5 +1,5 @@
 module Parsi
   class Date
-    VERSION = "0.1.pre"
+    VERSION = "0.1"
   end
 end
