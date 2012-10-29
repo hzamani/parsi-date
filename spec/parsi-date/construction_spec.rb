@@ -21,9 +21,9 @@ describe Parsi::Date do
       expect { Parsi::Date.civil 1391, '1', 9 }.to raise_error(ArgumentError, 'invalid date')
     end
 
-    it "constructs a Date for 0/1/1 by default" do
+    it "constructs a Date for 1/1/1 by default" do
       date = Parsi::Date.civil
-      date.year.should  == 0
+      date.year.should  == 1
       date.month.should == 1
       date.day.should   == 1
     end
@@ -55,14 +55,6 @@ describe Parsi::Date do
       expect { date = Parsi::Date.parse '1390/12/30' }.to      raise_error(ArgumentError)
       expect { date = Parsi::Date.parse 'bad date string' }.to raise_error(ArgumentError)
       expect { date = Parsi::Date.parse '12-30-1390' }.to      raise_error(ArgumentError)
-    end
-  end
-
-  context "#today" do
-    it "initialize a date object with today's attributes" do
-      Date.stub(:today) { Date.new 2012, 10, 26 }
-      date = Parsi::Date.today
-      [date.year, date.month, date.day].should == [1391, 8, 5]
     end
   end
 end

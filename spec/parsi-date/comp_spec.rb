@@ -18,14 +18,14 @@ describe "Parsi::Date#<=>" do
   end
 
   it "returns 0 when self is equal to a Numeric" do
-    (Parsi::Date.civil(1391, 4, 6) <=> 2456105).should == 0
+    (Parsi::Date.civil(1391, 4, 6) <=> Rational(4912209,2)).should == 0
   end
 
   it "returns -1 when self is less than a Numeric" do
-    (Parsi::Date.civil(1391, 4, 6) <=> 2456106).should == -1
+    (Parsi::Date.civil(1391, 4, 6) <=> Rational(4912210,2)).should == -1
   end
 
   it "returns 1 when self is greater than a Numeric" do
-    (Parsi::Date.civil(1391, 4, 6) <=> 2456104).should == 1
+    (Parsi::Date.civil(1391, 4, 6) <=> Rational(4912208,2)).should == 1
   end
 end

@@ -7,11 +7,11 @@ describe "Parsi::Date.jd" do
   end
 
   it "returns a Date object representing Julian day 0 if no arguments passed"do
-    Parsi::Date.jd.should == Parsi::Date.civil(-5335, 9, 1)
+    Parsi::Date.jd.should == Parsi::Date.civil(-5334, 9, 1)
   end
 
   it "constructs a Date object if passed a negative number" do
-    Parsi::Date.jd(-1).should == Parsi::Date.civil(-5335, 8, 30)
+    Parsi::Date.jd(-1).should == Parsi::Date.civil(-5334, 8, 30)
   end
 end
 

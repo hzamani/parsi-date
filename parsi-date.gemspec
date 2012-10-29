@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = 'hsn.zamani@gmail.com'
   s.homepage    = 'http://github.com/hzamani/parsi-date'
   s.summary     = 'Solar Hijri (Jalali, Persian, Parsi) date library for Ruby'
-  s.description = "A date library for Ruby based on Iran's standard calandar, whitch provides much of Ruby's built-in date class"
+  s.description = "A Solar Hijri (Jalali) date library for Ruby, whitch provides much of Ruby's built-in date class"
 
 
   # Load Paths...

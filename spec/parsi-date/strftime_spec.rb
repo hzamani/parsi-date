@@ -5,7 +5,6 @@ describe "Parsi::Date#strftime" do
 
   it "should be able to print the date" do
     Parsi::Date.civil(1390, 4, 6).strftime.should == "1390/04/06"
-    Parsi::Date.civil(1390, 4, 6).strftime.should == Parsi::Date.civil(1390, 4, 6).to_s
   end
 
   it "should be able to print the full day name" do
@@ -50,14 +49,9 @@ describe "Parsi::Date#strftime" do
     Parsi::Date.civil(1390, 4, 6).strftime("%t").should == "\t"
   end
 
-  it "should be able to show the commercial week day" do
-    Parsi::Date.civil(1390, 4, 10).strftime("%u").should == "7"
-    Parsi::Date.civil(1390, 4, 11).strftime("%u").should == "1"
-  end
-
   it "should be able to show the week day" do
-    Parsi::Date.civil(1390, 4, 10).strftime("%w").should == "6"
-    Parsi::Date.civil(1390, 4, 11).strftime("%w").should == "0"
+    Parsi::Date.civil(1390, 4, 11).strftime("%w").should == "6"
+    Parsi::Date.civil(1390, 4, 12).strftime("%w").should == "0"
   end
 
   it "should be able to show the year in YYYY format" do

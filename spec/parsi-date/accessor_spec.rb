@@ -53,14 +53,7 @@ end
 
 describe "Parsi::Date#wday" do
   it "determines the week day" do
-    Parsi::Date.civil(1391, 1, 17).wday.should == 5
-    Parsi::Date.civil(1391, 8, 6).wday.should == 0
-  end
-end
-
-describe "Parsi::Date#cwday" do
-  it "determines the commercial week day" do
-    Parsi::Date.civil(1391, 1, 17).cwday.should == 6
-    Parsi::Date.civil(1391, 8, 6).cwday.should == 1
+    Parsi::Date.civil(1391, 1, 17).wday.should == 4
+    Parsi::Date.civil(1391, 8, 6).wday.should == 6
   end
 end

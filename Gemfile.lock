@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    parsi-date (0.1.pre)
+    parsi-date (0.1)
 
 GEM
   remote: http://rubygems.org/
