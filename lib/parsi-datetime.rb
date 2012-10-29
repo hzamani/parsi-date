@@ -200,3 +200,13 @@ class DateTime
   alias :to_jalali  :to_parsi
   alias :to_persian :to_parsi
 end
+
+class Time
+  # Returns a Parsi::DateTime object representing same date in Jalali calendar
+  def to_parsi
+    to_datetime.to_parsi
+  end
+  alias :jalali     :to_parsi
+  alias :to_jalali  :to_parsi
+  alias :to_persian :to_parsi
+end

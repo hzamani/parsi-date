@@ -3,23 +3,40 @@ require File.expand_path('../../spec_helper', __FILE__)
 
 describe "Date constants" do
   it "defines MONTHNAMES" do
-    Parsi::Date::MONTHNAMES.should == [nil] + %w(فروردین اردیبهشت خرداد تیر مرداد شهریور مهر آبان آذر دی بهمن اسفند)
+    Parsi::Date::MONTHNAMES.should == [nil] +
+      %w(فروردین اردیبهشت خرداد تیر مرداد شهریور مهر آبان آذر دی بهمن اسفند)
+  end
+
+  it "defines EN_MONTHNAMES" do
+    Parsi::Date::EN_MONTHNAMES.should == [nil] +
+      %w(farvardin ordibehesht khordad tir mordad sharivar mehr aban azar day bahman esfand)
   end
 
   it "defines ABBR_MONTHNAMES" do
-    Parsi::Date::ABBR_MONTHNAMES.should == [nil] + %w(Far Ord Kho Tir Mor Sha Meh Abn Azr Dey Bah Esf)
+    Parsi::Date::ABBR_MONTHNAMES.should == [nil] +
+      %w(far ord kho tir mor sha meh abn azr dey bah esf)
   end
 
   it "defines DAYNAMES" do
-    Parsi::Date::DAYNAMES.should == %w(یک‌شنده دوشنده سه‌شنده چهارشنده چنج‌شنده جمعه شنده )
+    Parsi::Date::DAYNAMES.should == %w(یک‌شنده دوشنده سه‌شنده چهارشنده چنج‌شنده جمعه شنده)
+  end
+
+  it "defines EN_DAYNAMES" do
+    Parsi::Date::EN_DAYNAMES.should == %w(yekshambe doshambe seshambe chaharshambe panjshanbe jomee shanbe)
   end
 
   it "defines ABBR_DAYNAMES" do
     Parsi::Date::ABBR_DAYNAMES.should == %w(۱ش ۲ش ۳ش ۴ش ۵ش ج ش)
   end
 
-  it "freezes MONTHNAMES, DAYNAMES, ABBR_MONTHNAMES, ABBR_DAYSNAMES" do
-    [Parsi::Date::MONTHNAMES, Parsi::Date::DAYNAMES, Parsi::Date::ABBR_MONTHNAMES, Parsi::Date::ABBR_DAYNAMES].each do |ary|
+  it "defines ABBR_EN_DAYNAMES" do
+    Parsi::Date::ABBR_EN_DAYNAMES.should == %w(ye do se ch pj jo sh)
+  end
+
+  it "freezes MONTHNAMES, DAYNAMES, EN_DAYNAMES, ABBR_MONTHNAMES, ABBR_DAYSNAMES" do
+    [Parsi::Date::MONTHNAMES, Parsi::Date::EN_MONTHNAMES, Parsi::Date::ABBR_MONTHNAMES,
+     Parsi::Date::DAYNAMES, Parsi::Date::EN_DAYNAMES,
+     Parsi::Date::ABBR_DAYNAMES, Parsi::Date::ABBR_EN_DAYNAMES].each do |ary|
       ary.should be_frozen
     end
   end

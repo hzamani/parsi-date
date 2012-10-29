@@ -93,19 +93,31 @@ module Parsi
     # month's numerical representation indexed into this array
     # gives the name of that month (hence the first element is nil).
     MONTHNAMES = [nil] + %w(فروردین اردیبهشت خرداد تیر مرداد شهریور مهر آبان آذر دی بهمن اسفند)
+    # Full month names, in English. Months count from 1 to 12;
+    EN_MONTHNAMES = [nil] + %w(farvardin ordibehesht khordad tir mordad sharivar mehr aban azar day bahman esfand)
 
     # Full names of days of the week, in Farsi. Days of the week
-    # count from 0 to 6 (except in the commercial week); a day's numerical
-    # representation indexed into this array gives the name of that day.
+    # count from 0 to 6; a day's numerical representation indexed into this array gives
+    # the name of that day.
     DAYNAMES = %w(یک‌شنده دوشنده سه‌شنده چهارشنده چنج‌شنده جمعه شنده)
 
+    # Full names of days of the week, in English. Days of the week
+    # count from 0 to 6; a day's numerical representation indexed into this array gives
+    # the name of that day.
+    EN_DAYNAMES = %w(yekshambe doshambe seshambe chaharshambe panjshanbe jomee shanbe)
+
     # Abbreviated month names, in English.
-    ABBR_MONTHNAMES = [nil] + %w(Far Ord Kho Tir Mor Sha Meh Abn Azr Dey Bah Esf)
+    #
+    # We don't have Farsi abbreviated month names, as they are not useful
+    ABBR_MONTHNAMES = [nil] + %w(far ord kho tir mor sha meh abn azr dey bah esf)
 
     # Abbreviated day names, in Farsi.
     ABBR_DAYNAMES = %w(۱ش ۲ش ۳ش ۴ش ۵ش ج ش)
 
-    [MONTHNAMES, ABBR_MONTHNAMES, DAYNAMES, ABBR_DAYNAMES].each do |xs|
+    # Abbreviated day names, in English.
+    ABBR_EN_DAYNAMES = %w(ye do se ch pj jo sh)
+
+    [MONTHNAMES, EN_MONTHNAMES, ABBR_MONTHNAMES, DAYNAMES, EN_DAYNAMES, ABBR_DAYNAMES, ABBR_EN_DAYNAMES].each do |xs|
       xs.each{|x| x.freeze unless x.nil?}.freeze
     end
 
@@ -457,6 +469,10 @@ module Parsi
       define_method(n.downcase + '?'){ wday == i }
     end
 
+    EN_DAYNAMES.each_with_index do |n, i|
+      define_method(n.downcase + '?'){ wday == i }
+    end
+
     # Return a new Date object that is +n+ days later than the current one.
     #
     # +n+ may be a negative value, in which case the new Date is earlier
@@ -590,6 +606,27 @@ module Parsi
       DateTime.new! jd_to_ajd(jd, 0, 0), 0
     end
 
+    def to_parsi
+      self
+    end
+    alias :jalali     :to_parsi
+    alias :to_jalali  :to_parsi
+    alias :to_persian :to_parsi
+
+    # Formats time according to the directives in the given format string.
+    # The directives begins with a percent (%) character. Any text not listed as a
+    # directive will be passed through to the output string.
+    #
+    # The directive consists of a percent (%) character, zero or more flags,
+    # optional minimum field width, optional modifier and a conversion specifier as
+    # follows.
+    #
+    #   %<flags><width><modifier><conversion>
+    #
+    # +flags+ and +conversion+ are as in +Time+ exept that the +E+ flag is not egnored
+    # any more, it forse useing English names
+    #
+    #
     def strftime format='%Y/%m/%d'
       format.
         gsub('%%', 'PERCENT_SUBSTITUTION_MARKER').
@@ -598,24 +635,34 @@ module Parsi
         gsub('%x', '%D').
         gsub('%D', '%y/%m/%d').
         gsub('%F', '%Y-%m-%d').
-        gsub('%v', '%e-%b-%Y').
+        gsub('%v', '%e-%B-%Y').
         gsub('%Y', year.to_s).
         gsub('%C', (year / 100).to_s).
         gsub('%y', (year % 100).to_s).
         gsub('%m',  '%02d' % month).
-        gsub('%_m', '% 2d' % month).
+        gsub('%_m', '%2d' % month).
         gsub('%-m', month.to_s).
         gsub('%^B', '%B').
         gsub('%B', MONTHNAMES[month]).
+        gsub('%E^B', '%^EB').
+        gsub('%^EB', EN_MONTHNAMES[month].capitalize).
+        gsub('%EB', EN_MONTHNAMES[month]).
         gsub('%h', '%b').
+        gsub('%^h', '%^b').
         gsub('%b', ABBR_MONTHNAMES[month]).
         gsub('%^b', ABBR_MONTHNAMES[month].capitalize).
         gsub('%d', '%02d' % day).
-        gsub('%e', '% 2d' % day).
+        gsub('%e', '%2d' % day).
         gsub('%-d', day.to_s).
         gsub('%j', '%03d' % yday.to_s).
         gsub('%A', DAYNAMES[wday]).
         gsub('%a', ABBR_DAYNAMES[wday]).
+        gsub('%EA', EN_DAYNAMES[wday]).
+        gsub('%Ea', ABBR_EN_DAYNAMES[wday]).
+        gsub('%E^A', '%^EA').
+        gsub('%^EA', EN_DAYNAMES[wday].capitalize).
+        gsub('%E^a', '%^Ea').
+        gsub('%^Ea', ABBR_EN_DAYNAMES[wday].capitalize).
         gsub('%w', wday.to_s).
         gsub('%n', "\n").
         gsub('%t', "\t").
@@ -693,3 +740,5 @@ class Date
   alias :to_jalali  :to_parsi
   alias :to_persian :to_parsi
 end
+
+require 'parsi-datetime'

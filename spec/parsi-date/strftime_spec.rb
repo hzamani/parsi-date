@@ -17,11 +17,15 @@ describe "Parsi::Date#strftime" do
 
   it "should be able to print the full month name" do
     Parsi::Date.civil(1390, 4, 6).strftime("%B").should == "تیر"
+    Parsi::Date.civil(1390, 4, 6).strftime("%EB").should == "tir"
+    Parsi::Date.civil(1390, 4, 6).strftime("%^EB").should == "Tir"
   end
 
   it "should be able to print the short month name" do
-    Parsi::Date.civil(1390, 4, 6).strftime("%b").should == "Tir"
-    Parsi::Date.civil(1390, 4, 6).strftime("%h").should == "Tir"
+    Parsi::Date.civil(1390, 4, 6).strftime("%b").should == "tir"
+    Parsi::Date.civil(1390, 4, 6).strftime("%h").should == "tir"
+    Parsi::Date.civil(1390, 4, 6).strftime("%^b").should == "Tir"
+    Parsi::Date.civil(1390, 4, 6).strftime("%^h").should == "Tir"
     Parsi::Date.civil(1390, 4, 6).strftime("%b").should == Parsi::Date.civil(1390, 4, 6).strftime("%h")
   end
 
@@ -30,15 +34,23 @@ describe "Parsi::Date#strftime" do
   end
 
   it "should be able to print the month day with leading zeroes" do
-    Parsi::Date.civil(1390, 4, 6).strftime("%d").should == "06"
+    Parsi::Date.civil(1390, 4,  6).strftime("%d").should == "06"
+    Parsi::Date.civil(1390, 4, 16).strftime("%d").should == "16"
   end
 
-  it "should be able to print the month day with leading spaces" do
-    Parsi::Date.civil(1390, 4, 6).strftime("%e").should == " 6"
+  it "should be able to print the month day with leading spaces and without em" do
+    Parsi::Date.civil(1390, 4,  6).strftime("%-d").should == "6"
+    Parsi::Date.civil(1390, 4,  6).strftime("%e").should == " 6"
+    Parsi::Date.civil(1390, 4, 16).strftime("%e").should == "16"
   end
 
-  it "should be able to print the month with leading zeroes" do
-    Parsi::Date.civil(1390, 4, 6).strftime("%m").should == "04"
+  it "should be able to print the month with leading zeroes, spaces and none" do
+    Parsi::Date.civil(1390,  4, 6).strftime("%m").should == "04"
+    Parsi::Date.civil(1390, 11, 6).strftime("%m").should == "11"
+    Parsi::Date.civil(1390,  4, 6).strftime("%_m").should == " 4"
+    Parsi::Date.civil(1390, 11, 6).strftime("%_m").should == "11"
+    Parsi::Date.civil(1390,  4, 6).strftime("%-m").should == "4"
+    Parsi::Date.civil(1390, 11, 6).strftime("%-m").should == "11"
   end
 
   it "should be able to add a newline" do
@@ -86,8 +98,8 @@ describe "Parsi::Date#strftime" do
   end
 
   it "should be able to show the commercial week" do
-    Parsi::Date.civil(1390, 4, 9).strftime("%v").should == " 9-Tir-1390"
-    Parsi::Date.civil(1390, 4, 9).strftime("%v").should == Parsi::Date.civil(1390, 4, 9).strftime('%e-%b-%Y')
+    Parsi::Date.civil(1390, 4, 9).strftime("%v").should == " 9-تیر-1390"
+    Parsi::Date.civil(1390, 4, 9).strftime("%v").should == Parsi::Date.civil(1390, 4, 9).strftime('%e-%B-%Y')
   end
 
   it "should be able to show YY/MM/DD" do
