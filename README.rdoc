@@ -10,25 +10,21 @@ Conversion algorithm originally adopted from {here}[http://www.fourmilab.ch/docu
 You can use +Parsi::Date+ and +Parsi::DateTime+ objects as +Date+ and +DateTime+ objects
 For example:
 
-```
-a = Parsi::Date.today                     # => #<Parsi::Date: 1391-08-09 (4912461/2,0/1)>
-b = a >> 12                               # => #<Parsi::Date: 1392-08-09 (4913193/2,0/1)>
-a.upto(b).select{ |d| d.sunday? }.count   # => 52
+  a = Parsi::Date.today                     # => #<Parsi::Date: 1391-08-09 (4912461/2,0/1)>
+  b = a >> 12                               # => #<Parsi::Date: 1392-08-09 (4913193/2,0/1)>
+  a.upto(b).select{ |d| d.sunday? }.count   # => 52
 
-Parsi::Date.leap? 1391                    # => true
+  Parsi::Date.leap? 1391                    # => true
 
-c = Parsi::Date.parse "1391/10/12"        # => #<Parsi::Date: 1391-10-12 (4912587/2,0)>
-c.strftime "%A %d %B %Y"                  # => "سه‌شنده 12 دی 1391"
-c.strftime "%^EA %d %^EB %Y"              # => "Seshambe 12 Day 1391"
-```
+  c = Parsi::Date.parse "1391/10/12"        # => #<Parsi::Date: 1391-10-12 (4912587/2,0)>
+  c.strftime "%A %d %B %Y"                  # => "سه‌شنده 12 دی 1391"
+  c.strftime "%^EA %d %^EB %Y"              # => "Seshambe 12 Day 1391"
 
 For converting a +Date+ or +DateTime+ object just call +to_parsi+ (aliased to +jalali+ and +to_jalali+) on it.
 To convert back use +to_gregorian+.
 
-```
-d = Date.civil(2012, 10, 30).to_parsi     # => #<Parsi::Date: 1391-08-09 (4912461/2,0/1)>
-d.to_gregorian                            # => #<Date: 2012-10-30 ((2456231j,0s,0n),+0s,2299161j)>
-```
+  d = Date.civil(2012, 10, 30).to_parsi     # => #<Parsi::Date: 1391-08-09 (4912461/2,0/1)>
+  d.to_gregorian                            # => #<Date: 2012-10-30 ((2456231j,0s,0n),+0s,2299161j)>
 
 
 
