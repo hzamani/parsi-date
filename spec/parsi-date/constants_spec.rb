@@ -18,7 +18,7 @@ describe "Date constants" do
   end
 
   it "defines DAYNAMES" do
-    Parsi::Date::DAYNAMES.should == %w(یک‌شنده دوشنده سه‌شنده چهارشنده چنج‌شنده جمعه شنده)
+    Parsi::Date::DAYNAMES.should == %w(یک‌شنبه دوشنبه سه‌شنبه چهارشنبه چنج‌شنبه جمعه شنبه)
   end
 
   it "defines EN_DAYNAMES" do

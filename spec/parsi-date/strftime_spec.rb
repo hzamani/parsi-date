@@ -8,7 +8,7 @@ describe "Parsi::Date#strftime" do
   end
 
   it "should be able to print the full day name" do
-    Parsi::Date.civil(1390, 4, 6).strftime("%A").should == "دوشنده"
+    Parsi::Date.civil(1390, 4, 6).strftime("%A").should == "دوشنبه"
   end
 
   it "should be able to print the short day name" do
