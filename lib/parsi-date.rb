@@ -94,7 +94,7 @@ module Parsi
     # gives the name of that month (hence the first element is nil).
     MONTHNAMES = [nil] + %w(فروردین اردیبهشت خرداد تیر مرداد شهریور مهر آبان آذر دی بهمن اسفند)
     # Full month names, in English. Months count from 1 to 12;
-    EN_MONTHNAMES = [nil] + %w(farvardin ordibehesht khordad tir mordad sharivar mehr aban azar day bahman esfand)
+    EN_MONTHNAMES = [nil] + %w(farvardin ordibehesht khordad tir mordad shahrivar mehr aban azar day bahman esfand)
 
     # Full names of days of the week, in Farsi. Days of the week
     # count from 0 to 6; a day's numerical representation indexed into this array gives
@@ -104,12 +104,12 @@ module Parsi
     # Full names of days of the week, in English. Days of the week
     # count from 0 to 6; a day's numerical representation indexed into this array gives
     # the name of that day.
-    EN_DAYNAMES = %w(yekshambe doshambe seshambe chaharshambe panjshanbe jomee shanbe)
+    EN_DAYNAMES = %w(yekshanbe doshanbe seshanbe chaharshanbe panjshanbe jomee shanbe)
 
     # Abbreviated month names, in English.
     #
     # We don't have Farsi abbreviated month names, as they are not useful
-    ABBR_MONTHNAMES = [nil] + %w(far ord kho tir mor sha meh abn azr dey bah esf)
+    ABBR_MONTHNAMES = [nil] + %w(far ord kho tir mor sha meh abn azr day bah esf)
 
     # Abbreviated day names, in Farsi.
     ABBR_DAYNAMES = %w(۱ش ۲ش ۳ش ۴ش ۵ش ج ش)
