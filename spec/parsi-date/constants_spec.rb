@@ -9,12 +9,12 @@ describe "Date constants" do
 
   it "defines EN_MONTHNAMES" do
     Parsi::Date::EN_MONTHNAMES.should == [nil] +
-      %w(farvardin ordibehesht khordad tir mordad sharivar mehr aban azar day bahman esfand)
+      %w(farvardin ordibehesht khordad tir mordad shahrivar mehr aban azar day bahman esfand)
   end
 
   it "defines ABBR_MONTHNAMES" do
     Parsi::Date::ABBR_MONTHNAMES.should == [nil] +
-      %w(far ord kho tir mor sha meh abn azr dey bah esf)
+      %w(far ord kho tir mor sha meh abn azr day bah esf)
   end
 
   it "defines DAYNAMES" do
@@ -22,7 +22,7 @@ describe "Date constants" do
   end
 
   it "defines EN_DAYNAMES" do
-    Parsi::Date::EN_DAYNAMES.should == %w(yekshambe doshambe seshambe chaharshambe panjshanbe jomee shanbe)
+    Parsi::Date::EN_DAYNAMES.should == %w(yekshanbe doshanbe seshanbe chaharshanbe panjshanbe jomee shanbe)
   end
 
   it "defines ABBR_DAYNAMES" do
