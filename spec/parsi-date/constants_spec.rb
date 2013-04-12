@@ -9,7 +9,7 @@ describe "Date constants" do
 
   it "defines EN_MONTHNAMES" do
     Parsi::Date::EN_MONTHNAMES.should == [nil] +
-      %w(farvardin ordibehesht khordad tir mordad sharivar mehr aban azar day bahman esfand)
+      %w(farvardin ordibehesht khordad tir mordad shahrivar mehr aban azar day bahman esfand)
   end
 
   it "defines ABBR_MONTHNAMES" do
