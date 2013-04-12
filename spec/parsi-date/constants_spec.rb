@@ -14,7 +14,7 @@ describe "Date constants" do
 
   it "defines ABBR_MONTHNAMES" do
     Parsi::Date::ABBR_MONTHNAMES.should == [nil] +
-      %w(far ord kho tir mor sha meh abn azr dey bah esf)
+      %w(far ord kho tir mor sha meh abn azr day bah esf)
   end
 
   it "defines DAYNAMES" do
