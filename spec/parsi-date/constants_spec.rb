@@ -22,7 +22,7 @@ describe "Date constants" do
   end
 
   it "defines EN_DAYNAMES" do
-    Parsi::Date::EN_DAYNAMES.should == %w(yekshambe doshambe seshambe chaharshambe panjshanbe jomee shanbe)
+    Parsi::Date::EN_DAYNAMES.should == %w(yekshanbe doshanbe seshanbe chaharshanbe panjshanbe jomee shanbe)
   end
 
   it "defines ABBR_DAYNAMES" do
