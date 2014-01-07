@@ -99,7 +99,7 @@ module Parsi
     # Full names of days of the week, in Farsi. Days of the week
     # count from 0 to 6; a day's numerical representation indexed into this array gives
     # the name of that day.
-    DAYNAMES = %w(یک‌شنبه دوشنبه سه‌شنبه چهارشنبه چنج‌شنبه جمعه شنبه)
+    DAYNAMES = %w(یک‌شنبه دوشنبه سه‌شنبه چهارشنبه پنج‌شنبه جمعه شنبه)
 
     # Full names of days of the week, in English. Days of the week
     # count from 0 to 6; a day's numerical representation indexed into this array gives
