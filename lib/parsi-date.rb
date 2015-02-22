@@ -576,6 +576,16 @@ module Parsi
       self + (jd2 - jd)
     end
 
+    # Returns the day of calendar week (1-7, Monday is 1)
+    def cwday
+      to_gregorian.cwday
+    end
+
+    # Returns the calendar week number (1-53).
+    def cweek
+      (jd - Date.send(:first_day_of_year, year)) / 7 + 1
+    end
+
     # Return a new Date object that is +n+ months earlier than the current one.
     #
     # If the day-of-the-month of the current Date is greater than the last day of
