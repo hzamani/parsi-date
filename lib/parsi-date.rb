@@ -61,6 +61,8 @@
 require 'date'
 
 module Parsi
+  autoload 'DateAccessors', 'parsi-date-accessors'
+
   # Class representing a date.
   #
   # See the documentation to the file parsi-date.rb for an overview.
