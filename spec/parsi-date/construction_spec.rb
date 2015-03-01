@@ -1,5 +1,3 @@
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe Parsi::Date do
   context "civil" do
     it "constructs a date with arguments" do

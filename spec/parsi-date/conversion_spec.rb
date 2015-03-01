@@ -1,5 +1,3 @@
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe "Parsi::Date.jd" do
   it "constructs a date form given Chronological Julian day number" do
     Parsi::Date.jd(2456228).should == Parsi::Date.civil(1391, 8, 6)

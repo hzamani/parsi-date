@@ -1,5 +1,3 @@
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe "Parsi::Date#step" do
 
   it "steps forward in time" do

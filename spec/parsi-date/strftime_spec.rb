@@ -1,6 +1,4 @@
 # encoding: utf-8
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe "Parsi::Date#strftime" do
 
   it "should be able to print the date" do

@@ -1,5 +1,3 @@
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe "Parsi::Date#ajd" do
   it "determines the Astronomical Julian day" do
     Parsi::Date.civil(1391, 8, 6).ajd.should == Rational(4912455, 2)

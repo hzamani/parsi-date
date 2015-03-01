@@ -1,5 +1,3 @@
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe "Parsi::Date#+" do
   it "adds the number of days to a Parsi::Date" do
     d = Parsi::Date.civil(1391, 2, 27) + 10

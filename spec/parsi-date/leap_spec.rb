@@ -1,5 +1,3 @@
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe "Parsi::Date#leap?" do
   it "returns true if a year is a leap year in the Parsi (Jalali) calendar" do
     Parsi::Date.leap?(1387).should be_truthy

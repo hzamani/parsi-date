@@ -1,6 +1,4 @@
 # encoding: utf-8
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe "Date constants" do
   it "defines MONTHNAMES" do
     Parsi::Date::MONTHNAMES.should == [nil] +

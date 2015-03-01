@@ -1,5 +1,3 @@
-require File.expand_path('../../spec_helper', __FILE__)
-
 describe "Parsi::Date#cwday?" do
   it "returns the day of calendar week (1-7, Monday is 1)" do
     Parsi::Date.civil(1393, 12, 3).cwday.should == 7
