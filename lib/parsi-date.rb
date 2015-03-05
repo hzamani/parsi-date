@@ -585,7 +585,8 @@ module Parsi
 
     # Returns the calendar week number (1-53).
     def cweek
-      (jd - Date.send(:first_day_of_year, year)) / 7 + 1
+      start = Date.civil(year, 1, 1)
+      ((jd - start.jd + start.cwday - 5) / 7.0).ceil
     end
 
     # Return a new Date object that is +n+ months earlier than the current one.

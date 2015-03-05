@@ -7,7 +7,10 @@ end
 
 describe "Parsi::Date#cweek?" do
   it "returns the calendar week number (1-53)" do
-    Parsi::Date.civil(1394, 1, 3).cweek.should == 1
+    Parsi::Date.civil(1393, 11, 30).cweek.should == 48
+    Parsi::Date.civil(1393, 12, 1).cweek.should == 48
+    Parsi::Date.civil(1393, 12, 29).cweek.should == 52
+    Parsi::Date.civil(1394, 1, 1).cweek.should == 1
     Parsi::Date.civil(1394, 1, 7).cweek.should == 1
     Parsi::Date.civil(1394, 1, 8).cweek.should == 2
   end
