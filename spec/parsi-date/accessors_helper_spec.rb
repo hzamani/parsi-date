@@ -24,7 +24,7 @@ end
 describe "Record extended with Parsi::Date::Accessors" do
   it "has parsi postfixed accessor for giver attributes" do
     record = Record.new
-    %i(created_at_parsi created_at_parsi= updated_at_parsi updated_at_parsi).each do |name|
+    [:created_at_parsi, :created_at_parsi=, :updated_at_parsi, :updated_at_parsi].each do |name|
       expect(record.respond_to?(name)).to be_truthy
     end
   end
