@@ -189,7 +189,7 @@ module Parsi
       # Returns the corresponding Julian Day Number if they do, nil if they don't.
       # Invalid values cause an ArgumentError to be raised.
       def _valid_civil? year, month, day # :nodoc:
-        return unless year.is_a?(Fixnum) && month.is_a?(Fixnum) && day.is_a?(Fixnum)
+        return unless year.is_a?(Integer) && month.is_a?(Integer) && day.is_a?(Integer)
         return civil_to_jd(year, 12, 30) if leap?(year) && month == 12 && day == 30
 
         if 1 <= month && month <= 12 && 1 <= day && day <= DAYS_IN_MONTH[month]
