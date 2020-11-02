@@ -747,7 +747,7 @@ class Date
 
   # Returns a Parsi::Date object representing same date in Jalali calendar
   def to_parsi
-    Parsi::Date.new! ajd, offset
+    Parsi::Date.new! self.ajd
   end
   alias :jalali     :to_parsi
   alias :to_jalali  :to_parsi
