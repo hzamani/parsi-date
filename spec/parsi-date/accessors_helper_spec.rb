@@ -1,12 +1,14 @@
-require 'active_record'
 require 'sqlite3'
+require 'active_record'
 
-ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'dbfile.sqlite3')
 
 ActiveRecord::Schema.verbose = false
 ActiveRecord::Schema.define do
-  create_table :models do |t|
-    t.date :start_date
+  if !table_exists? :models
+    create_table :models do |t|
+      t.date :start_date
+    end
   end
 end
 
@@ -55,7 +57,7 @@ describe "Record extended with Parsi::Date::Accessors" do
 
       it "raises error when string is not a date" do
         record = Record.new
-        expect {record.created_at_parsi = "1393-13-11" }.to raise_error
+        expect {record.created_at_parsi = "1393-13-11" }.to raise_error(ArgumentError)
       end
     end
   end
