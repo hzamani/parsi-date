@@ -141,11 +141,13 @@ module Parsi
     LD_EPOCH_IN_CJD        = 2299160 # :nodoc:
     DAYS_IN_MONTH          = [nil, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29] # :nodoc:
 
+    LEAP_REMINDERS         = [1, 5, 9, 13, 17, 22, 26, 30].freeze
+
     shared_methods = Module.new do
 
       # Returns true if the given year is a leap year of the calendar.
       def leap? year
-        ((((((year - ((year > 0) ? 474 : 473)) % 2820) + 474) + 38) * 682) % 2816) < 682
+        LEAP_REMINDERS.include?(year - (year / 33).floor * 33)
       end
       alias_method :jalali_leap?, :leap?
 
