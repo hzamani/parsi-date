@@ -5,23 +5,23 @@ describe "Parsi::Date#step" do
     de = Parsi::Date.civil(1391, 9, 29)
     count = 0
     de.step(ds) do |d|
-      d.should <= ds
-      d.should >= de
+      expect d <= ds
+      expect d >= de
       count += 1
     end
-    count.should == 13
+    expect count == 13
 
     count = 0
     de.step(ds, 5) do |d|
-      d.should <= ds
-      d.should >= de
+      expect d <= ds
+      expect d >= de
       count += 1
     end
-    count.should == 3
+    expect count == 3
 
     count = 0
     ds.step(de) do |d|; count += 1; end
-    count.should == 0
+    expect count == 0
   end
 
   it "steps backward in time" do
@@ -29,22 +29,22 @@ describe "Parsi::Date#step" do
     de = Parsi::Date.civil(1390, 3, 29)
     count = 0
     ds.step(de, -1) do |d|
-      d.should <= ds
-      d.should >= de
+      expect d <= ds
+      expect d >= de
       count += 1
     end
-    count.should == 17
+    expect count == 17
 
     count = 0
     ds.step(de, -5) do |d|
-      d.should <= ds
-      d.should >= de
+      expect d <= ds
+      expect d >= de
       count += 1
     end
-    count.should == 4
+    expect count == 4
 
     count = 0
     de.step(ds, -1) do |d|; count += 1; end
-    count.should == 0
+    expect count == 0
   end
 end

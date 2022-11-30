@@ -55,7 +55,7 @@ describe "Record extended with Parsi::Date::Accessors" do
 
       it "raises error when string is not a date" do
         record = Record.new
-        expect {record.created_at_parsi = "1393-13-11" }.to raise_error
+        expect {record.created_at_parsi = "1393-13-11" }.to raise_error(ArgumentError, 'invalid date')
       end
     end
   end

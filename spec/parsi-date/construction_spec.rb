@@ -21,35 +21,35 @@ describe Parsi::Date do
 
     it "constructs a Date for 1/1/1 by default" do
       date = Parsi::Date.civil
-      date.year.should  == 1
-      date.month.should == 1
-      date.day.should   == 1
+      expect date.year  == 1
+      expect date.month == 1
+      expect date.day   == 1
     end
   end
 
   context "ordinal" do
     it "constructs a Date object from an ordinal date" do
-      Parsi::Date.ordinal(1390).should       == Parsi::Date.civil(1390, 1, 1)
-      Parsi::Date.ordinal(1390,7).should     == Parsi::Date.civil(1390, 1, 7)
-      Parsi::Date.ordinal(1390,100).should   == Parsi::Date.civil(1390, 4, 7)
+      expect Parsi::Date.ordinal(1390)       == Parsi::Date.civil(1390, 1, 1)
+      expect Parsi::Date.ordinal(1390,7)     == Parsi::Date.civil(1390, 1, 7)
+      expect Parsi::Date.ordinal(1390,100)   == Parsi::Date.civil(1390, 4, 7)
     end
   end
 
   context "parse" do
-    it "should parse date from strings" do
+    it "parses date from strings" do
       ['1391/8/6', '1391-8-6', '1391 8 6', '1391 8 6', '13910806'].each do |date_string|
         date = Parsi::Date.parse date_string
-        [date.year, date.month, date.day].should == [1391, 8, 6]
+        expect [date.year, date.month, date.day] == [1391, 8, 6]
       end
     end
 
     it "completes century when second arg is true" do
-      Date.stub(:today) { Date.new 2012, 10, 26 }
+      allow(Date).to receive(:today) { Date.new 2012, 10, 26 }
       date = Parsi::Date.parse '91/8/5', true
-      [date.year, date.month, date.day].should == [1391, 8, 5]
+      expect [date.year, date.month, date.day] == [1391, 8, 5]
     end
 
-    it "should raise ArgumentError on invalid date string" do
+    it "raises ArgumentError on invalid date string" do
       expect { date = Parsi::Date.parse '1390/12/30' }.to      raise_error(ArgumentError)
       expect { date = Parsi::Date.parse 'bad date string' }.to raise_error(ArgumentError)
       expect { date = Parsi::Date.parse '12-30-1390' }.to      raise_error(ArgumentError)
