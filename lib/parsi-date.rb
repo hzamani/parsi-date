@@ -746,9 +746,16 @@ class Date
   end
 
   # Returns a Parsi::Date object representing same date in Jalali calendar
-  def to_parsi
-    Parsi::Date.new! ajd, offset
+  if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("3.0.0")
+    def to_parsi
+      Parsi::Date.new! ajd, offset
+    end
+  else
+    def to_parsi
+      Parsi::Date.new! ajd
+    end
   end
+
   alias :jalali     :to_parsi
   alias :to_jalali  :to_parsi
   alias :to_persian :to_parsi
