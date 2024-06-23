@@ -135,11 +135,11 @@ module Parsi
     JALALI_EPOCH_IN_AJD    = Rational(3896641, 2) # :nodoc:
     MJD_EPOCH_IN_AJD       = Rational(4800001, 2) # 1858-11-17 # :nodoc:
     UNIX_EPOCH_IN_AJD      = Rational(4881175, 2) # 1970-01-01 # :nodoc:
-    JALALI_EPOCH_IN_CJD    = 1948321 # :nodoc:
+    JALALI_EPOCH_IN_CJD    = 1948320 # :nodoc:
     MJD_EPOCH_IN_CJD       = 2400001 # :nodoc:
     UNIX_EPOCH_IN_CJD      = 2440588 # :nodoc:
     LD_EPOCH_IN_CJD        = 2299160 # :nodoc:
-    DAYS_IN_MONTH          = [nil, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29] # :nodoc:
+    DAYS_IN_MONTH          = [0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29] # :nodoc:
 
     LEAP_REMINDERS         = [1, 5, 9, 13, 17, 22, 26, 30].freeze
 
@@ -153,38 +153,43 @@ module Parsi
 
       private
 
-      DAYS_TO_FIRST_OF_MONTH = [nil, 0, 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336] # :nodoc:
-
       # Convert a Civil Date to a Julian Day Number and returns the corresponding Julian Day Number.
-      def civil_to_jd year, month, day # :nodoc:
-        epbase = year - 474
-        epyear = 474 + (epbase % 2820)
+      def civil_to_jd(year, month, day) # :nodoc:
+        year -= 1
+        month -= 1
+        day -= 1
 
-        day + DAYS_TO_FIRST_OF_MONTH[month] +
-          (epyear * 682 - 110) / 2816 +
-          (epyear - 1) * 365 +
-          (epbase / 2820 * 1029983) +
-          (JALALI_EPOCH_IN_CJD - 1)
+        jd = 365*year + (year/33)*8 + (year%33+3)/4;
+        while month > 0
+          jd += DAYS_IN_MONTH[month]
+          month -= 1
+        end
+
+        jd + day + JALALI_EPOCH_IN_CJD
       end
 
       # Convert a Julian Day Number to a Civil Date. +jday+ is the Julian Day Number.
       #
       # Returns the corresponding [year, month, day_of_month] as a three-element array.
-      def jd_to_civil jday
-        depoch = (jday - first_day_of_year(475))
-        cycle, cyear = depoch.divmod 1029983
+      def jd_to_civil jd
+        jd -= JALALI_EPOCH_IN_CJD
 
-        if cyear == 1029982
-          ycycle = 2820
-        else
-          aux1, aux2 = cyear.divmod 366
-          ycycle = (2134 * aux1 + 2816 * aux2 + 2815) / 1028522 + aux1 + 1
+        n, jd = jd.divmod 12053
+        m, jd = jd.divmod 1461
+        year = 33*n + 4*m + 1
+
+        if jd >= 366
+          n, jd = (jd - 1).divmod 365
+          year += n
         end
-        year  = ycycle + 2820 * cycle + 474
-        yday  = jday - first_day_of_year(year) + 1
-        month = ((yday <= 186) ? yday / 31.0 : (yday - 6) / 30.0).ceil
-        day   = (jday - first_day_of_month(year, month) + 1)
-        [year, month, day]
+
+        month = 1
+        while month < 12 && jd >= DAYS_IN_MONTH[month]
+          jd -= DAYS_IN_MONTH[month]
+          month += 1
+        end
+
+        [year, month, jd + 1]
       end
 
       # Do +year+, +month+, and day-of-month +day+ make a valid Civil Date?
@@ -332,7 +337,6 @@ module Parsi
       #   Parsi::Date.jd             # => #<Parsi::Date: -5335-09-01>
       #
       def jd jday=0
-        jd = _valid_jd? jday
         new! jd_to_ajd(jday, 0, 0), 0
       end
 
@@ -733,7 +737,7 @@ module Parsi
     def marshal_dump() [@ajd, @offset] end
 
     # Load from Marshal format.
-    def marshal_load(a) @ajd, @of, = a end
+    def marshal_load(a) @ajd, @offset, = a end
   end
 end
 
