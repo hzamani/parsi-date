@@ -1,6 +1,6 @@
 # Parsi Date
 
-The Parsi Date library is an implementation of the [Solar Hijri Calendar](http://en.wikipedia.org/wiki/Solar_Hijri_calendar), also known as the Jalali or Persian Calendar, which is the official calendar of Iran. This library aims to create a Solar Hijri date library that closely resembles Ruby's built-in date library, providing a seamless experience for users who need to work with the Solar Hijri dates. The conversion algorithm used in this library is adopted from [FarsiWeb](http://www.farsiweb.info/jalali/jalali.c).
+The Parsi Date library is an implementation of the [Solar Hijri Calendar](http://en.wikipedia.org/wiki/Solar_Hijri_calendar), also known as the Jalali or Persian Calendar, which is the official calendar of Iran. This library aims to create a Solar Hijri date library that closely resembles Ruby's built-in date library, providing a seamless experience for users who need to work with the Solar Hijri dates. The conversion algorithm used in this library is inspired by FarsiWeb.
 
 ## Features
 
