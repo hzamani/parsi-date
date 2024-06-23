@@ -70,7 +70,7 @@ d.to_gregorian
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'parsi_date'
+gem 'parsi-date'
 ```
 
 And then execute:
@@ -82,7 +82,7 @@ bundle install
 Or install it yourself as:
 
 ```sh
-gem install parsi_date
+gem install parsi-date
 ```
 
 ## License
