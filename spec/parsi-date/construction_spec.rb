@@ -21,17 +21,18 @@ describe Parsi::Date do
 
     it "constructs a Date for 1/1/1 by default" do
       date = Parsi::Date.civil
-      expect date.year  == 1
-      expect date.month == 1
-      expect date.day   == 1
+      expect(date.year ).to be == 1
+      expect(date.month).to be == 1
+      expect(date.day  ).to be == 1
     end
   end
 
   context "ordinal" do
     it "constructs a Date object from an ordinal date" do
-      expect Parsi::Date.ordinal(1390)       == Parsi::Date.civil(1390, 1, 1)
-      expect Parsi::Date.ordinal(1390,7)     == Parsi::Date.civil(1390, 1, 7)
-      expect Parsi::Date.ordinal(1390,100)   == Parsi::Date.civil(1390, 4, 7)
+      expect(Parsi::Date.ordinal(1390)     ).to be == Parsi::Date.civil(1390, 1, 1)
+      expect(Parsi::Date.ordinal(1390, 7)  ).to be == Parsi::Date.civil(1390, 1, 7)
+      expect(Parsi::Date.ordinal(1390, 100)).to be == Parsi::Date.civil(1390, 4, 7)
+      expect(Parsi::Date.ordinal(1403, 366)).to be == Parsi::Date.civil(1403, 12, 30)
     end
   end
 
@@ -39,20 +40,20 @@ describe Parsi::Date do
     it "parses date from strings" do
       ['1391/8/6', '1391-8-6', '1391 8 6', '1391 8 6', '13910806'].each do |date_string|
         date = Parsi::Date.parse date_string
-        expect [date.year, date.month, date.day] == [1391, 8, 6]
+        expect([date.year, date.month, date.day]).to be == [1391, 8, 6]
       end
     end
 
     it "completes century when second arg is true" do
       allow(Date).to receive(:today) { Date.new 2012, 10, 26 }
       date = Parsi::Date.parse '91/8/5', true
-      expect [date.year, date.month, date.day] == [1391, 8, 5]
+      expect([date.year, date.month, date.day]).to be == [1391, 8, 5]
     end
 
     it "raises ArgumentError on invalid date string" do
-      expect { date = Parsi::Date.parse '1390/12/30' }.to      raise_error(ArgumentError)
+      expect { date = Parsi::Date.parse '1390/12/30'      }.to raise_error(ArgumentError)
       expect { date = Parsi::Date.parse 'bad date string' }.to raise_error(ArgumentError)
-      expect { date = Parsi::Date.parse '12-30-1390' }.to      raise_error(ArgumentError)
+      expect { date = Parsi::Date.parse '12-30-1390'      }.to raise_error(ArgumentError)
     end
   end
 end
